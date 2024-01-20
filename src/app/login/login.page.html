@@ -1,0 +1,50 @@
+<ion-content class="swiper-no-swiping">
+  <div class="container top">
+
+    <ion-segment (ionChange)="segmentChanged($event)" mode="ios" value="login">
+      <ion-segment-button mode="ios" value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button mode="ios" value="register">
+        <ion-label>Cadastro</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-slides #slides>
+    <ion-slide>
+
+      <form class="slide-inner ion-padding" [formGroup]="formLogin" (ngSubmit)="login()">
+        <span>Login</span>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" color="light" expand="block" ion-button type="submit" [disabled]="!formLogin.valid">Entrar</ion-button>
+      </form>
+    </ion-slide>
+
+    <ion-slide>
+      <form class="slide-inner ion-padding" [formGroup]="formRegister" (ngSubmit)="register()">
+        <span>Cadastro</span>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="email" placeholder="E-mail" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" color="light" expand="block" ion-button type="submit" [disabled]="!formRegister.valid">Criar</ion-button>
+      </form>
+    </ion-slide>
+  </ion-slides>
+
+  <div class="ocean">
+    <div class="waves" [ngStyle]="{'background-position-x': wavesPosition + 'px'}"></div>
+
+    <div class="container bottom ion-text-center">
+      <span>O aplicativo que foi feito para o gerenciamento de festas na Party Place!</span>
+    </div>
+  </div>
+</ion-content>

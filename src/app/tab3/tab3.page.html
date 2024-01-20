@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Cadastro    
+    <ion-button style="float: right;" size="small" shape="round" color="light" (click)="logout()">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cadastrar Evento</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="this.form" (ngSubmit)="create(form)">
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Endereço</ion-label>
+      <ion-input type="text" formControlName="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Detalhes</ion-label>
+      <ion-textarea formControlName="details"></ion-textarea>
+    </ion-item>
+    <ion-button ion-button type="submit" [disabled]="!form.valid">Criar</ion-button>
+  </form>
+
+  <ion-card *ngFor="let event of events | async">
+    <ion-card-header>
+      <ion-card-title>{{event.payload.val().name}}</ion-card-title>
+    </ion-card-header>  
+    <ion-card-content>
+      {{event.payload.val().address}}
+    </ion-card-content>  
+    <ion-button (click)="setOpen(true)" (click)='populateUpdateForm(event.payload.val(), event.key)'>Edit</ion-button>
+    <ion-button (click)='deleteEvent(event.key)' color="danger">Remover</ion-button>
+  </ion-card>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="this.update" (ngSubmit)="updateEvent(this.update)">
+          <ion-item>
+            <ion-label>Nome</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Endereço</ion-label>
+            <ion-input type="text" formControlName="address"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Detalhes</ion-label>
+            <ion-textarea formControlName="details"></ion-textarea>
+          </ion-item>
+          <ion-button ion-button type="submit" [disabled]="!form.valid">Salvar</ion-button>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

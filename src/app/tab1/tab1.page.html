@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Eventos Salvos
+      <ion-button style="float: right;" size="small" shape="round" color="light" (click)="logout()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Eventos Salvos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card color="primary" *ngFor="let event of savedEvents | async">
+    <ion-card-header>
+      <ion-card-title>{{event.name}}</ion-card-title>
+      <ion-card-subtitle>{{event.address}}</ion-card-subtitle>
+    </ion-card-header>  
+    <ion-card-content>
+      {{event.details}}
+    </ion-card-content>
+  </ion-card>
+  
+
+</ion-content>
